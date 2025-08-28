@@ -1,0 +1,26 @@
+trainer:
+  max_epochs: 50
+  optimizer:
+    type: SGD
+    lr: 0.001
+    momentum: 0.9
+    weight_decay: 0.0005
+  batch_size: 8
+  mixed_precision: true
+  warmup_epochs: 3
+  average_best_models: true
+
+model:
+  architecture: yolo_nas_s        # options: yolo_nas_s, yolo_nas_m, yolo_nas_l
+  pretrained_weights: coco
+  num_classes: 9                 # update according to actual number of classes
+
+loss:
+  type: PPYoloELoss
+
+metrics:
+  - type: DetectionMetrics_050
+  - type: DetectionMetrics_050_095
+
+callbacks:
+  - type: DetectionEvalCallback
